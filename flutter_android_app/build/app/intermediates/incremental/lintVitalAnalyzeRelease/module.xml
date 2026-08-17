@@ -1,0 +1,18 @@
+<lint-module
+    format="1"
+    dir="/home/mvaliente/Documentos/macro_rail/android/app"
+    name=":app"
+    type="APP"
+    maven="android:app:unspecified"
+    agpVersion="8.12.0"
+    buildFolder="/home/mvaliente/Documentos/macro_rail/build/app"
+    bootClassPath="/home/mvaliente/Android/Sdk/platforms/android-34/android.jar:/home/mvaliente/Android/Sdk/build-tools/35.0.0/core-lambda-stubs.jar"
+    javaSourceLevel="1.8"
+    compileTarget="android-34">
+  <lintOptions
+      abortOnError="true"
+      absolutePaths="true"
+      checkReleaseBuilds="true"
+      explainIssues="true"/>
+  <variant name="release"/>
+</lint-module>
