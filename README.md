@@ -23,8 +23,6 @@ The project includes all the information you need to build your own MacroRail:
 - Wiring diagram
 - Firmware installation
 - Bluetooth configuration
-- Movement calibration
-- Infrared shutter configuration
 
 ## How does it work?
 
@@ -33,21 +31,13 @@ Using MacroRail is simple:
 Configure → Start → Move → Shoot → Repeat → Stack
 
 1. Mount your camera on the MacroRail.
-
 2. Position and focus on the subject you want to photograph.
-
 3. Configure the process from the mobile app via Bluetooth.
-
 4. MacroRail moves the camera using a NEMA 17 stepper motor.
-
 5. The camera precisely reaches the next position.
-
 6. The infrared module automatically sends the shutter command to the camera.
-
 7. The rail moves again by the configured distance.
-
 8. The process is automatically repeated until the entire configured travel distance has been completed.
-
 9. Combine the captured images using your favorite Focus Stacking software.
 
 The result is a series of photographs captured at precise, progressively spaced positions, ready to be stacked.
@@ -165,3 +155,48 @@ Go to the next tutorial to configure the current of the driver. I can´t explain
 * [https://lastminuteengineers.com/drv8825-stepper-motor-driver-arduino-tutorial/](https://lastminuteengineers.com/drv8825-stepper-motor-driver-arduino-tutorial/)
 
 ![](/images/motor.png)
+
+
+# Firmware installation
+
+The code is available on the [https://github.com/benjugat/MacroRail/blob/main/arduino/MacroRail.ino](github repo), just use Arduino IDE to compile and upload the sketch to the arduino nano.
+
+If you have a different camera, just change the IR signal on the `sendPhotoIR()` function. I read the signal with a FlipperZero.
+
+```cpp
+void sendPhotoIR() {
+  uint16_t rawData[] = {
+    2400, 600,
+    1200, 600,
+    600, 600,
+    1200, 600,
+    1200, 600,
+    600, 600,
+    1200, 600,
+    600, 600,
+    600, 600,
+    1200, 600,
+    600, 600,
+    1200, 600,
+    1200, 600,
+    1200, 600,
+    600, 600,
+    600, 600,
+    600, 600,
+    1200, 600,
+    1200, 600,
+    1200, 600,
+    1200, 600
+  };
+
+  IrSender.sendRaw(rawData, sizeof(rawData) / sizeof(rawData[0]), 40);
+  sendMessage("PHOTO");
+}
+```
+
+# Bluetooth configuration
+
+An android application with flutter was delevoped in order to control the MacroRail. So launch the application and go to Scan Devices. By default is shown as `Slave HC-05` or just `HC-05`.
+
+Connect and send the default pin `1234`.
+
